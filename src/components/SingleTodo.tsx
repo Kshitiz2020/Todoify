@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { MdOutlineDone } from "react-icons/md";
@@ -42,6 +42,11 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
     }
   };
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [edit]);
+
+  const inputRef = useRef<HTMLInputElement>(null);
   return (
     <form
       className="flex items-center justify-between bg-white p-4 rounded shadow mb-2"
@@ -52,6 +57,7 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
     >
       {edit ? (
         <input
+          ref={inputRef}
           value={editTodo}
           onChange={(e) => setEditTodo(e.target.value)}
           className="flex-grow border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-200"
